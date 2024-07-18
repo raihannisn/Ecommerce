@@ -124,19 +124,28 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="{{ url('admin/dashboard') }}" class="nav-link active">
+            <a href="{{ url('admin/dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Dashboard 
               </p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{ url('admin/admin/list') }}" class="nav-link">
+            <a href="{{ url('admin/admin/list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 User Admin
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/product/list') }}" class="nav-link @if(Request::segment(2) == 'product') active @endif">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Product
               </p>
             </a>
           </li>
