@@ -15,10 +15,11 @@ class CategoryModel extends Model
     {
         return self::find($id);
     }
-    static function getCategory()
+    static public function getCategory()
     {
         return self::select('category.*', 'users.name as created_by_name')
             ->join('users', 'users.id', '=' , 'category.created_by')
+            ->where('category.is_delete', '=', 0)
             ->orderBy('category.id', 'desc')
             ->get();
     }
