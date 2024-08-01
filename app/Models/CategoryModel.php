@@ -15,7 +15,7 @@ class CategoryModel extends Model
     {
         return self::find($id);
     }
-    static public function getCategory()
+    static public function getRecord()
     {
         return self::select('category.*', 'users.name as created_by_name')
             ->join('users', 'users.id', '=' , 'category.created_by')

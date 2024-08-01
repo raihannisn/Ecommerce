@@ -42,11 +42,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/category/delete/{id}', [CategoryController::class, 'delete']);
   
     Route::get('admin/sub_category/list', [SubCategoryController::class, 'list']);
-    // Route::get('admin/sub_category/add', [SubCategoryController::class, 'add']);
-    // Route::post('admin/sub_category/add', [SubCategoryController::class, 'insert']);
-    // Route::get('admin/sub_category/edit/{id}', [SubCategoryController::class, 'edit']);
-    // Route::post('admin/sub_category/edit/{id}', [SubCategoryController::class, 'update']);
-    // Route::get('admin/sub_category/delete/{id}', [SubCategoryController::class, 'delete']);
+    Route::get('admin/sub_category/add', [SubCategoryController::class, 'add']);
+    Route::post('admin/sub_category/add', [SubCategoryController::class, 'insert']);
+    Route::get('admin/sub_category/edit/{id}', [SubCategoryController::class, 'edit']);
+    Route::post('admin/sub_category/edit/{id}', [SubCategoryController::class, 'update']);
+    Route::get('admin/sub_category/delete/{id}', [SubCategoryController::class, 'delete']);
     
 });
 

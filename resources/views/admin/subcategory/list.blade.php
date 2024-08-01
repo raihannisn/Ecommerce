@@ -10,7 +10,7 @@
               <h1>Sub Category List</h1>
             </div>
             <div class="col-sm-6" style="text-align: right;">
-              <a href="{{ url('admin/category/add') }}" class="btn btn-primary">Add New Category</a>
+              <a href="{{ url('admin/sub_category/add') }}" class="btn btn-primary">Add New Category</a>
             </div>
           </div>
         </div>
@@ -25,14 +25,15 @@
 
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
+                  <h3 class="card-title">Sub Category List</h3>
                 </div>
                 <div class="card-body p-0">
                   <table class="table table-striped">
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Category Name</th>
+                        <th>Sub Category Name</th>
                         <th>Slug</th>
                         <th>Meta Title</th>
                         <th>Meta Description</th>
@@ -49,6 +50,7 @@
                       @foreach($getRecord as $value)
                       <tr>
                         <td>{{ $num++ }}</td>
+                        <td>{{ $value->category_name}}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->slug }}</td>
                         <td>{{ $value->meta_title }}</td>
@@ -58,13 +60,16 @@
                         <td>{{ ($value->status == 0 ? 'Active' : 'Inactive') }}</td>
                         <td>{{ date('Y-m-d', strtotime($value->created_at)) }}</td>
                         <td>
-                          <a href="{{ url('admin/category/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
-                          <a href="{{ url('admin/category/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                          <a href="{{ url('admin/sub_category/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
+                          <a href="{{ url('admin/sub_category/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
                         </td>
                       </tr>
                       @endforeach
                     </tbody>
                   </table>
+                  <div style="padding: 10px; float: right;">
+                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                  </div>
                 </div>
               </div>
             </div>

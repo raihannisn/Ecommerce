@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function list()
     {
-        $data['getRecord'] = CategoryModel::getCategory();
+        $data['getRecord'] = CategoryModel::getRecord();
         $data['header_title'] = 'Category List';
         return view('admin.category.list', $data);
     }
@@ -53,6 +53,7 @@ class CategoryController extends Controller
         request()->validate([
             'slug' => 'required|unique:category,slug,'.$id
         ]);
+        
         $category = CategoryModel::getSingle($id);
         $category->name = trim($request->name);
         $category->slug = trim($request->slug);

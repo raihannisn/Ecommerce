@@ -11,6 +11,12 @@ class SubCategoryModel extends Model
 
     protected $table = 'sub_category';
 
+
+    static public function getSingle($id)
+    {
+        return self::find($id);
+    }
+
     static public function getRecord()
     {
         return self::select('sub_category.*', 'users.name as created_by_name', 'category.name as category_name')
@@ -18,6 +24,6 @@ class SubCategoryModel extends Model
             ->join('users', 'users.id', '=' , 'sub_category.created_by')
             ->where('sub_category.is_delete', '=', 0)
             ->orderBy('sub_category.id', 'desc')
-            ->paginate(20);
+            ->paginate(50);
     }
 }
