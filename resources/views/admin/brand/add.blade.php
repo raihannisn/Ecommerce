@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create New Category</h1>
+                    <h1>Create New Brand</h1>
                 </div>
             </div>
         </div>
@@ -21,8 +21,8 @@
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Category Name <span style="color:red">*</span></label>
-                                    <input type="text" class="form-control" name="name" required value="{{ old('name') }}" placeholder="Category Name">
+                                    <label>Brand Name <span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="name" required value="{{ old('name') }}" placeholder="Brand Name">
                                 </div>
                                 <div class="form-group">
                                     <label>Slug <span style="color:red">*</span></label>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="button" class="btn btn-danger float-right" onclick="window.location='{{ url('admin/category/list') }}'">Back</button>
+                                <button type="button" class="btn btn-danger float-right" onclick="window.location='{{ url('admin/brand/list') }}'">Back</button>
                             </div>
                         </form>
                     </div>
