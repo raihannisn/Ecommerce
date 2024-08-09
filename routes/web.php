@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 
@@ -56,6 +57,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/brand/edit/{id}', [BrandController::class, 'edit']);
     Route::post('admin/brand/edit/{id}', [BrandController::class, 'update']);
     Route::get('admin/brand/delete/{id}', [BrandController::class, 'delete']);
+
+    Route::get('admin/color/list', [ColorController::class, 'list']);
+    Route::get('admin/color/add', [ColorController::class, 'add']);
+    Route::post('admin/color/add', [ColorController::class, 'insert']);
+    Route::get('admin/color/edit/{id}', [ColorController::class, 'edit']);
+    Route::post('admin/color/edit/{id}', [ColorController::class, 'update']);
+    Route::get('admin/color/delete/{id}', [ColorController::class, 'delete']);
     
     Route::get('admin/product/list', [ProductController::class, 'list']);
     Route::get('admin/product/add', [ProductController::class, 'add']);
