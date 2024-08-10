@@ -32,11 +32,8 @@
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Title</th>
                         <th>Slug</th>
-                        <th>Meta Title</th>
-                        <th>Meta Description</th>
-                        <th>Meta Keywords</th>
                         <th>Created By</th>
                         <th>Status</th>
                         <th>Created Date</th>
@@ -44,9 +41,26 @@
                       </tr>
                     </thead>
                     <tbody>
-                     
+                      @foreach ($getRecord as $value)
+                      @php $num = 1; 
+                      @endphp
+                      <tr>
+                        <td> {{ $num++ }} </td>
+                        <td> {{ $value->title }} </td>
+                        <td> {{ $value->created_by_name }} </td>
+                        <td>{{ ($value->status == 0 ? 'Active' : 'Inactive') }}</td>
+                        <td>{{ date('Y-m-d', strtotime($value->created_at)) }}</td>
+                        <td>
+                          <a href="{{ url('admin/product/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
+                          <a href="{{ url('admin/product/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
+                  <div style="padding: 10px; float: right;">
+                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                  </div>
                 </div>
               </div>
             </div>
