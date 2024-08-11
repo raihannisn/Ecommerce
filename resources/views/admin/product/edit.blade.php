@@ -39,8 +39,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Category<span style="color:red">*</span></label>
-                                            <select class="form-control" name="category_id">
+                                            <select class="form-control" id="ChangeCategory" name="category_id">
                                                 <option value="">Selecet</option>
+                                                @foreach($getCategory as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -48,7 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Sub Category<span style="color:red">*</span></label>
-                                            <select class="form-control" name="sub_category_id">
+                                            <select class="form-control" id="getSubCategory" name="sub_category_id">
                                                 <option value="">Selecet</option>
                                             </select>
                                         </div>
@@ -59,6 +62,9 @@
                                             <label>Brand<span style="color:red">*</span></label>
                                             <select class="form-control" name="brand_id">
                                                 <option value="">Selecet</option>
+                                                @foreach($getBrand as $brand)
+                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -68,15 +74,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Color<span style="color:red">*</span></label>
+                                            @foreach($getColor as $color)
                                             <div>
-                                                <label for=""><input type="checkbox"name="color_id[]">Red</label>
+                                                <label for=""><input type="checkbox"name="color_id[]" value="{{ $color->id }}">{{ $color->name }}</label>
                                             </div>
-                                            <div>
-                                                <label for=""><input type="checkbox"name="color_id[]">Green</label>
-                                            </div>
-                                            <div>
-                                                <label for=""><input type="checkbox"name="color_id[]">Yellow</label>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -216,5 +218,26 @@
 @endsection
 
 @section('script')
-<script src="{{ url('public/assets/dist/js/pages/dashboard3.js') }}"></script>
+<script type="text/javascript">
+    $('body').delegate('#ChangeCategory', 'change', function(e) {
+        var id = $(this).val();
+
+        $.ajax({
+            type: "post",
+            url: "{{ url('admin/get_sub_category') }}",
+            data: {
+                "id" : id,
+                "_token": "{{ csrf_token() }}"
+            },
+            dataType: "json",
+            success: function(data) {
+                $('#getSubCategory').html(data.html);
+            },
+            error: function(data) {
+                
+            }     
+        });
+
+    });
+ </script>
 @endsection

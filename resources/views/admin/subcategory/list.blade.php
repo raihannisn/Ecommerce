@@ -10,7 +10,7 @@
               <h1>Sub Category List</h1>
             </div>
             <div class="col-sm-6" style="text-align: right;">
-              <a href="{{ url('admin/sub_category/add') }}" class="btn btn-primary">Add New Category</a>
+              <a href="{{ url('admin/sub_category/add') }}" class="btn btn-primary">Add New Sub Category</a>
             </div>
           </div>
         </div>

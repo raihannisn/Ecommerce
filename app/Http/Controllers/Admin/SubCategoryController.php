@@ -77,4 +77,19 @@ class SubCategoryController extends Controller
         $subcategory->delete();
         return redirect('admin/sub_category/list')->with('success', 'Sub Category deleted successfully');
     }
+
+    public function get_sub_category(Request $request)
+    {
+        $category_id = $request->id;
+        $get_sub_category = SubCategoryModel::getRecordSubCategory($category_id);
+        $html = '';
+        $html .= '<option value="">Selecet</option>';
+        foreach ($get_sub_category as $value)
+        {
+            $html .= '<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+
+        $json['html'] = $html;
+        echo json_encode($json);
+    }
 }

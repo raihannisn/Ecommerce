@@ -41,9 +41,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($getRecord as $value)
                       @php $num = 1; 
                       @endphp
+                      @foreach ($getRecord as $value)
                       <tr>
                         <td> {{ $num++ }} </td>
                         <td> {{ $value->title }} </td>
