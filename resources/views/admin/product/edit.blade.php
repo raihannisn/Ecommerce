@@ -114,7 +114,7 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="AppendSize">
                                                         <tr>
                                                             <td>
                                                                 <input type="text" class="form-control" name="" placeholder="Name">
@@ -122,33 +122,10 @@
                                                             <td>
                                                                 <input type="text" class="form-control" name="" placeholder="Price">
                                                             </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary btn-sm">Add</button>
-                                                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                            <td style="width: 200px">
+                                                                <button type="button" class="btn btn-primary btn-sm AddSize">Add</button>
                                                             </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Name">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Price">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Name">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Price">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                            </td>
-                                                        </tr>
+                                                        </tr>                                                        
                                                     </tbody>
                                                 </table>
                                             </div> 
@@ -169,7 +146,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Description<span style="color:red">*</span></label>
-                                            <textarea class="form-control" name="description" placeholder="Description" cols="30" rows="10" ></textarea>
+                                            <textarea class="form-control editor" name="description" placeholder="Description" cols="30" rows="10" ></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +195,45 @@
 @endsection
 
 @section('script')
+
+<script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+
 <script type="text/javascript">
+
+$('.editor').tinymce({
+        height: 500,
+        menubar: false,
+        plugins: [
+          'a11ychecker','advlist','advcode','advtable','autolink','checklist','markdown',
+           'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+           'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+       ],
+       toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+     });
+
+var i = 1000;
+    $('body').delegate('.AddSize', 'click', function(e) {
+        var html = '<tr id="DeleteSize'+i+'">\n\
+                        <td>\n\
+                            <input type="text" class="form-control" name="" value="'+i+'" placeholder="Name">\n\
+                        </td>\n\
+                        <td>\n\
+                            <input type="text" class="form-control" name="" placeholder="Price">\n\
+                        </td>\n\
+                        <td>\n\
+                            <button type="button" id="'+i+'" class="btn btn-danger btn-sm DeleteSize">Delete</button>\n\
+                        </td>\n\
+                    </tr>';
+        i++;
+        $('#AppendSize').append(html);
+
+    });
+
+    $('body').delegate('.DeleteSize', 'click', function(e) {
+        var id = $(this).attr('id');
+        $('#DeleteSize'+id).remove();
+    });
+
     $('body').delegate('#ChangeCategory', 'change', function(e) {
         var id = $(this).val();
 
