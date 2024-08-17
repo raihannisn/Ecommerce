@@ -33,7 +33,6 @@
                       <tr>
                         <th>#</th>
                         <th>Title</th>
-                        <th>Slug</th>
                         <th>Created By</th>
                         <th>Status</th>
                         <th>Created Date</th>
