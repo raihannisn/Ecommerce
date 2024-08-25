@@ -16,6 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    @include('admin.layouts._message')
                     <div class="card card-primary">
                         <form action="" method="post">
                             {{ csrf_field() }}
@@ -39,10 +40,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Category<span style="color:red">*</span></label>
-                                            <select class="form-control" id="ChangeCategory" name="category_id">
+                                            <select class="form-control" required id="ChangeCategory" name="category_id">
                                                 <option value="">Selecet</option>
                                                 @foreach($getCategory as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option {{ ($product->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -51,8 +52,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Sub Category<span style="color:red">*</span></label>
-                                            <select class="form-control" id="getSubCategory" name="sub_category_id">
+                                            <select class="form-control" required id="getSubCategory" name="sub_category_id">
                                                 <option value="">Selecet</option>
+                                                @foreach($getSubCategory as $subcategory)
+                                                <option {{ ($product->sub_category_id == $subcategory->id) ? 'selected' : '' }} value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -63,7 +67,7 @@
                                             <select class="form-control" name="brand_id">
                                                 <option value="">Selecet</option>
                                                 @foreach($getBrand as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                <option {{ ($product->brand_id == $brand->id) ? 'selected' : '' }} value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -75,8 +79,18 @@
                                         <div class="form-group">
                                             <label>Color<span style="color:red">*</span></label>
                                             @foreach($getColor as $color)
+                                                @php
+                                                    $checked = '';
+                                                @endphp
+                                                @foreach($product->getColor as $pcolor)
+                                                    @if($pcolor->color_id == $color->id)
+                                                        @php
+                                                            $checked = 'checked';
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
                                             <div>
-                                                <label for=""><input type="checkbox"name="color_id[]" value="{{ $color->id }}">{{ $color->name }}</label>
+                                                <label for=""><input {{ $checked }} type="checkbox"name="color_id[]" value="{{ $color->id }}">{{ $color->name }}</label>
                                             </div>
                                             @endforeach
                                         </div>
@@ -89,14 +103,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Price ($)<span style="color:red">*</span></label>
-                                            <input type="text" class="form-control" name="price" required value="" placeholder="Price">
+                                            <input type="text" class="form-control" name="price" required value="{{ $product->price }}" placeholder="Price">
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Old Price ($)<span style="color:red">*</span></label>
-                                            <input type="text" class="form-control" name="old_price" required value="" placeholder="Old Price">
+                                            <input type="text" class="form-control" name="old_price" required value="{{ $product->old_price }}" placeholder="Old Price">
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +151,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Short Description<span style="color:red">*</span></label>
-                                            <textarea class="form-control" name="short_description" placeholder="Short Description"></textarea>
+                                            <textarea class="form-control" name="short_description" placeholder="Short Description">{{ $product->short_description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +160,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Description<span style="color:red">*</span></label>
-                                            <textarea class="form-control editor" name="description" placeholder="Description" cols="30" rows="10" ></textarea>
+                                            <textarea class="form-control editor" name="description" placeholder="Description" cols="30" rows="10" >{{ $product->description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +169,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Additional Information<span style="color:red">*</span></label>
-                                            <textarea class="form-control" name="additional_information" placeholder="Additional Information"></textarea>
+                                            <textarea class="form-control editor" name="additional_information" placeholder="Additional Information">{{ $product->additional_information }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +178,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Shipping & Returns<span style="color:red">*</span></label>
-                                            <textarea class="form-control" name="shipping_returns" placeholder="Shipping & Returns"></textarea>
+                                            <textarea class="form-control editor" name="shipping_returns" placeholder="Shipping & Returns">{{ $product->shipping_returns }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -174,15 +188,15 @@
                                         <div class="form-group">
                                             <label>Status <span style="color:red">*</span></label>
                                             <select name="status" class="form-control" required>
-                                                <option {{ old('status') == 0 ? 'selected' : '' }} value="0">Active</option>
-                                                <option {{ old('status') == 1 ? 'selected' : '' }} value="1">Inactive</option>
+                                                <option {{ ($product->status == 0) ? 'selected' : '' }} value="0">Active</option>
+                                                <option {{ ($product->status == 1) ? 'selected' : '' }} value="1">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
-
+                                </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-danger float-right" onclick="window.location='{{ url('admin/category/list') }}'">Back</button>
                             </div>
                         </form>
@@ -201,7 +215,7 @@
 
 tinymce.init({
             selector: '.editor',
-            height: 500,
+            height: 350,
             menubar: false,
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
