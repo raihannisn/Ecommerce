@@ -131,10 +131,10 @@
                                                     <tbody id="AppendSize">
                                                         <tr>
                                                             <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Name">
+                                                                <input type="text" class="form-control" name="size[100][name]" placeholder="Name">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="" placeholder="Price">
+                                                                <input type="text" class="form-control" name="size[100][price]" placeholder="Price">
                                                             </td>
                                                             <td style="width: 200px">
                                                                 <button type="button" class="btn btn-primary btn-sm AddSize">Add</button>
@@ -197,7 +197,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-danger float-right" onclick="window.location='{{ url('admin/category/list') }}'">Back</button>
+                                <button type="button" class="btn btn-danger float-right" onclick="window.location='{{ url('admin/product/list') }}'">Back</button>
                             </div>
                         </form>
                     </div>
@@ -217,8 +217,8 @@ tinymce.init({
             selector: '.editor',
             height: 350,
             menubar: false,
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
                 tinycomments_mode: 'embedded',
                 tinycomments_author: 'Author name',
                 mergetags_list: [
@@ -228,14 +228,14 @@ tinymce.init({
                 ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
         });
 
-var i = 1000;
+var i = 101;
     $('body').delegate('.AddSize', 'click', function(e) {
         var html = '<tr id="DeleteSize'+i+'">\n\
                         <td>\n\
-                            <input type="text" class="form-control" name="" value="'+i+'" placeholder="Name">\n\
+                            <input type="text" class="form-control" name="size['+i+'][name]" placeholder="Name">\n\
                         </td>\n\
                         <td>\n\
-                            <input type="text" class="form-control" name="" placeholder="Price">\n\
+                            <input type="text" class="form-control" name="size['+i+'][size]" placeholder="Price">\n\
                         </td>\n\
                         <td>\n\
                             <button type="button" id="'+i+'" class="btn btn-danger btn-sm DeleteSize">Delete</button>\n\

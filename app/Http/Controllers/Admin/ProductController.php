@@ -10,6 +10,7 @@ use App\Models\CategoryModel;
 use App\Models\ColorModel;
 use App\Models\SubCategoryModel;
 use App\Models\ProductColorModel;
+use App\Models\ProdcutSizeModel;
 use Str;
 use Auth;
 
@@ -98,6 +99,23 @@ class ProductController extends Controller
                     $color->color_id = $color_id;
                     $color->product_id = $product->id;
                     $color->save(); 
+                } 
+            }
+
+            ProdcutSizeModel::DeleteRecord($product->id);
+
+            if (!empty($request->size))
+            {
+                foreach ($request->size as $size)
+                {
+                    if (!empty($size['name']))
+                    {
+                        $saveSize = new ProdcutSizeModel();
+                        $saveSize->name = $size['name'];
+                        $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
+                        $saveSize->product_id = $product->id;
+                        $saveSize->save();
+                    }
                 } 
             }
 
